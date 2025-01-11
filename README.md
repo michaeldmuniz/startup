@@ -1,8 +1,8 @@
-# Your startup name here
+# ThriftConnect
 
 [My Notes](notes.md)
 
-A brief description of the application here. (Make sure you add something here)
+A brief description of the application here. 
 
 
 > [!NOTE]
