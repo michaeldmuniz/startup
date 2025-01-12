@@ -2,7 +2,7 @@
 
 [My Notes](notes.md)
 
-A brief description of the application here. 
+ThriftConnect is my innovative app that enhances the thrifting experience by leveraging technology to connect buyers and sellers of pre-loved clothing. It features real-time chat capabilities, allowing users to communicate directly and efficiently. This streamlines the process of coordinating transactions and inquiries, simplifying the interaction between parties. By connecting eco-conscious fashion enthusiasts with a diverse array of unique and affordable clothing options, ThriftConnect supports a sustainable fashion community, making eco-friendly shopping both accessible and enjoyable.
 
 
 > [!NOTE]
@@ -26,7 +26,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Have you ever wanted to make a fashion statement that's as good for the planet as it is for your style? ThriftConnect is here to transform the thrifting experience, connecting eco-conscious fashion enthusiasts with unique, affordable clothing through cutting-edge technology. Join us in changing the way the world thinks about fashion, making it accessible, fun, and green, one garment at a time!
 
 ### Design
 
