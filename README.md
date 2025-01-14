@@ -18,9 +18,9 @@ ThriftConnect is my innovative app that enhances the thrifting experience by lev
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
 - [ ] Description of how you will use each technology
 - [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
@@ -30,7 +30,7 @@ Have you ever wanted to make a fashion statement that's as good for the planet a
 
 ### Design
 
-![Design image](placeholder.png)
+![Design image](sign_in_page.png)
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
@@ -43,20 +43,20 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Sustainability Score: Rate items based on their environmental impact, encouraging users to make eco-friendly purchasing decisions.
+- Community Engagement: Include forums and community boards for users to share styling tips, organize local swap meets, and discuss sustainable fashion.
+
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - I will structure the user interface with HTML, designing pages for browsing items, uploading clothing listings, managing user accounts, and real-time chat windows.
+- **CSS** - I will use CSS for styling, ensuring the design is visually appealing and user-friendly, with a focus on mobile-first design to accommodate on-the-go thrift shoppers.
+- **React** - I will use React to build a dynamic and responsive user interface, manage application state and routing for a seamless single-page experience, integrate with real-time data for features like chat
+- **Service** - I will Integrate third-party APIs for additional functionalities, exploring APIs such as Good On You or EcoChain for trend analysis to suggest popular and environmentally sustainable items. Additionally, maybe community engagement tools that might leverage forums or discussion board APIs to enhance user interaction and support local fashion communities. And I will Develop web services to handle actions such as posting new listings, updating user profiles, and processing transactions securely.
+- **DB/Login** - I will Utilize a database to store user data, item listings, transaction histories, and chats.
+- **WebSocket** - I will Implement web sockets to facilitate real-time interactions used for real-time chat between buyers and sellers and notifications about new listings or price drops.
 
 ## 🚀 AWS deliverable
 
