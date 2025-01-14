@@ -21,8 +21,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] Proper use of Markdown
 - [x] A concise and compelling elevator pitch
 - [x] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] Description of how you will use each technology
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
 
@@ -32,19 +32,17 @@ Have you ever wanted to make a fashion statement that's as good for the planet a
 
 ![Design image](https://github.com/michaeldmuniz/startup/blob/main/Assignment%20Screenshots/sign_in_page.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+![Design image](https://github.com/michaeldmuniz/startup/blob/main/Assignment%20Screenshots/shop_page.png)
 
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
+![Design image](https://github.com/michaeldmuniz/startup/blob/main/Assignment%20Screenshots/item_page.png)
+
+![Design image](https://github.com/michaeldmuniz/startup/blob/main/Assignment%20Screenshots/sell_page.png)
 
 ### Key features
 
+- The ability to post new listings and click on the listings of others for more info
 - Sustainability Score: Rate items based on their environmental impact, encouraging users to make eco-friendly purchasing decisions.
-- Community Engagement: Include forums and community boards for users to share styling tips, organize local swap meets, and discuss sustainable fashion.
+- Direct messaging between buyers and sellers
 
 
 ### Technologies
@@ -54,7 +52,7 @@ I am going to use the required technologies in the following ways.
 - **HTML** - I will structure the user interface with HTML, designing pages for browsing items, uploading clothing listings, managing user accounts, and real-time chat windows.
 - **CSS** - I will use CSS for styling, ensuring the design is visually appealing and user-friendly, with a focus on mobile-first design to accommodate on-the-go thrift shoppers.
 - **React** - I will use React to build a dynamic and responsive user interface, manage application state and routing for a seamless single-page experience, integrate with real-time data for features like chat
-- **Service** - I will Integrate third-party APIs for additional functionalities, exploring APIs such as Good On You or EcoChain for trend analysis to suggest popular and environmentally sustainable items. Additionally, maybe community engagement tools that might leverage forums or discussion board APIs to enhance user interaction and support local fashion communities. And I will Develop web services to handle actions such as posting new listings, updating user profiles, and processing transactions securely.
+- **Service** - I will Integrate third-party APIs for additional functionalities, exploring APIs such as Good On You or EcoChain for trend analysis to suggest popular and environmentally sustainable items. Additionally, maybe community engagement tools that might leverage forums or discussion board APIs to enhance user interaction and support local fashion communities. And I will Develop web services to handle actions such as posting new listings and updating user profiles.
 - **DB/Login** - I will Utilize a database to store user data, item listings, transaction histories, and chats.
 - **WebSocket** - I will Implement web sockets to facilitate real-time interactions used for real-time chat between buyers and sellers and notifications about new listings or price drops.
 
