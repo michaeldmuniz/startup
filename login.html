@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+</head>
+<body>
+    <h1>Sign In</h1>
+    <form action="/submit-signin" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required><br><br>
+
+        <button type="submit">Sign In</button>
+    </form>
+
+    <footer>
+        <p>Forgot your password? <a href="reset-password.html">Reset here</a></p>
+        <p>Don't have an account? <a href="sign-up.html">Sign up</a></p>
+    </footer>
+</body>
+</html>
