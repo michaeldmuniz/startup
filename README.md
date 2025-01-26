@@ -60,21 +60,21 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://thriftdoor.com).
 
 ## 🚀 HTML deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I created 4 HTML pages using the correct usage of BODY, NAV, MAIN, HEADER and FOOTER
+- [x] **Proper HTML element usage** - I used HTML elements properly
+- [x] **Links** - I have links in all of my pages so each of them can be navigated to
+- [x] **Text** - I used text appropriately
+- [x] **3rd party API placeholder** - I added a placeholder for my 3rd party API's
+- [x] **Images** - I created a placeholder for where I want images to go
+- [x] **Login placeholder** - I created a placeholder for login
+- [x] **DB data placeholder** - I created a placeholder for database data
+- [x] **WebSocket placeholder** - I created a placeholer for websocket data
 
 ## 🚀 CSS deliverable
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Item</title>
+</head>
+<body>
+    <h1>Sell Your Item</h1>
+    <form action="/submit-sell-item" method="POST">
+        <label for="item-name">Item Name:</label>
+        <input type="text" id="item-name" name="item-name" placeholder="Enter item name" required><br><br>
+
+        <label for="item-price">Price:</label>
+        <input type="number" id="item-price" name="item-price" placeholder="Enter item price" required><br><br>
+
+        <label for="item-description">Description:</label>
+        <textarea id="item-description" name="item-description" placeholder="Describe the item" required></textarea><br><br>
+
+        <label for="item-image">Item Image:</label>
+        <input type="file" id="item-image" name="item-image"><br><br>
+
+        <button type="submit">Submit Item</button>
+    </form>
+
+    <div class="navigation">
+        <button onclick="window.location.href='sign-in.html'">Sign In</button>
+        <button onclick="window.location.href='index.html'">Go to Shop</button>
+    </div>
+</body>
+</html>
