@@ -6,6 +6,10 @@
     <title>Shop</title>
 </head>
 <body>
+    <nav>
+        <button onclick="window.location.href='login.html'">Sign In</button>
+        <button onclick="window.location.href='sell-item.html'">Sell an item</button>
+    </nav>
     <h1>Welcome to Our Shop</h1>
     <p>Browse through our items below!</p>
 
@@ -14,22 +18,22 @@
         <div class="item">
             <h2>Item 1</h2>
             <p>Price: $10</p>
-            <a href="item.html?id=1">View Item</a>
+            <button onclick="window.location.href='item.html?id=1'">View Item</button>
         </div>
         <div class="item">
             <h2>Item 2</h2>
             <p>Price: $20</p>
-            <a href="item.html?id=2">View Item</a>
+            <button onclick="window.location.href='item.html?id=2'">View Item</button>
         </div>
         
         <!-- Add more items here in the future -->
     </div>
-
-    <footer>
-        <p><a href="sell-item.html">Sell an item</a></p>
-    </footer>
     <div>
         <h2>Websocket data and Database Data</h2>
     </div>
+    <div>
+        <a href="https://github.com/michaeldmuniz/startup">Github Link</a>
+    </div>    
+
 </body>
 </html>
