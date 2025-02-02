@@ -9,9 +9,9 @@ body {
 
 /* Header and navigation styles */
 nav {
-    background-color: #007BFF;
+    background-color: #a1a1a1;
     color: white;
-    padding: 10px 20px 10px 20px; /* top, right, bottom, left */
+    padding: 10px 40px 10px 20px; /* Increased right padding */
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -19,7 +19,7 @@ nav {
 }
 
 nav button {
-    background-color: #006BDB;
+    background-color: #ac4001;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -29,28 +29,31 @@ nav button {
 }
 
 nav button:hover {
-    background-color: #0056B3;
+    background-color: #913602;
 }
 
 /* Main content styles */
 h1, h2 {
     color: #333;
-    justify-content: center;
+    text-align: center;
 }
 
+/* Container holding the items */
 .items-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around; /* Ensures items are spaced out evenly */
+    align-items: flex-start; /* Aligns items at the top */
     padding: 20px;
 }
 
+/* Individual item styles */
 .item {
     background-color: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin: 10px;
     padding: 20px;
-    width: 200px;
+    width: calc(25% - 20px); /* Adjust width to fit 4 items across */
     text-align: center;
 }
 
@@ -59,8 +62,9 @@ h1, h2 {
     height: auto;
 }
 
+/* General button styling */
 button {
-    background-color: #28A745;
+    background-color: #ac4001;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -113,4 +117,26 @@ a {
 }
 a:hover {
     text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+    .item {
+        width: calc(50% - 20px); /* 2 items per row on smaller desktops and tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .item {
+        width: calc(100% - 20px); /* 1 item per row on mobile devices */
+    }
+
+    nav {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    nav button {
+        width: 100%; /* Full width buttons in mobile nav */
+        margin-top: 10px;
+    }
 }
