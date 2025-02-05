@@ -1,183 +1,218 @@
 /* General body styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    color: #333;
+    font-family: 'Arial', sans-serif; /* Sets the default font for the body */
+    background-color: #f4f4f4; /* Sets the background color of the body */
+    margin: 0; /* Removes default margin around the body */
+    padding: 0; /* Removes default padding around the body */
+    color: #333; /* Sets the default text color */
 }
 
 /* Header and navigation styles */
 nav {
-    background-color: #a1a1a1;
-    color: white;
-    padding: 10px 40px 10px 20px; /* Increased right padding */
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
+    background-color: #a1a1a1; /* Sets background color of the navigation bar */
+    color: white; /* Sets the text color inside the navigation */
+    padding: 10px 40px 10px 20px; /* Pads the navigation for better spacing */
+    display: flex; /* Enables flexbox for layout */
+    justify-content: flex-end; /* Aligns navigation items to the right */
+    align-items: center; /* Centers items vertically within the nav */
+    width: 100%; /* Ensures the nav spans the full width of the viewport */
 }
 
 nav button {
-    background-color: #ac4001;
-    color: white;
-    border: none;
-    margin-left: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    background-color: #ac4001; /* Sets button background color */
+    color: rgb(255, 255, 255); /* Sets button text color */
+    border: none; /* Removes default button border */
+    margin-left: 10px; /* Adds space between buttons */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color change */
 }
 
 nav button:last-child {
-    margin-right: 30px;  /* Adds extra space on the right of the last button */
+    margin-right: 30px; /* Adds extra space on the right of the last button */
 }
 
 nav button:hover {
-    background-color: #913602;
+    background-color: #913602; /* Changes button background color on hover */
 }
 
 /* Main content styles */
 h1, h2, p {
-    color: #333;
-    text-align: center;
-}
-
-/* Container holding the items */
-.items-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around; /* Ensures items are spaced out evenly */
-    align-items: flex-start; /* Aligns items at the top */
-    padding: 20px;
+    color: #333; /* Sets text color for headings and paragraphs */
+    text-align: center; /* Centers text horizontally */
 }
 
 /* Individual item styles */
 .item {
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin: 10px;
-    padding: 20px;
-    width: calc(25% - 20px); /* Adjust width to fit 4 items across */
-    text-align: center;
+    background-color: white; /* Sets background color for item cards */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds shadow to cards for 3D effect */
+    margin: 10px; /* Adds margin around cards for spacing */
+    padding: 20px; /* Adds padding inside cards for spacing */
+    width: calc(25% - 20px); /* Calculates width to fit 4 items per row */
+    text-align: center; /* Centers text inside items */
+}
+
+/* Container holding the items */
+.items-list {
+    display: flex; /* Enables flexbox layout for item list */
+    flex-wrap: wrap; /* Allows items to wrap onto next line */
+    justify-content: space-around; /* Distributes space around items evenly */
+    align-items: flex-end; /* Aligns items at the bottom of the container */
+    padding: 20px; /* Adds padding inside item list container */
 }
 
 .item img {
-    width: 100%;
-    height: auto;
+    width: 100%; /* Sets image width to fill container */
+    height: auto; /* Maintains aspect ratio of images */
 }
 
 /* General button styling */
 button {
-    background-color: #ac4001;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    background-color: #ac4001; /* Sets button background color */
+    color: white; /* Sets text color on buttons */
+    border: none; /* Removes default button border */
+    padding: 10px 20px; /* Pads buttons for better touch */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color change */
 }
 
 button:hover {
-    background-color: #913602;
+    background-color: #913602; /* Changes button background color on hover */
 }
-
-
 
 /* Form styling */
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    margin: auto;
-    width: 100%;
-    max-width: 320px; /* Restrict form width for better aesthetics */
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex; /* Enables flexbox layout for forms */
+    flex-direction: column; /* Stacks form fields vertically */
+    align-items: center; /* Centers form fields horizontally */
+    padding: 20px; /* Adds padding around form for spacing */
+    margin: auto; /* Centers form in the available space */
+    width: 100%; /* Sets form width to fill container */
+    max-width: 320px; /* Limits form width for aesthetics */
+    background-color: #fff; /* Sets form background color */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Adds shadow to form for 3D effect */
 }
-
 
 label {
-    align-self: flex-start;
-    margin-bottom: 5px;
-    font-weight: bold;
+    align-self: flex-start; /* Aligns labels to the start of the flex container */
+    margin-bottom: 5px; /* Adds space below labels */
+    font-weight: bold; /* Makes label text bold */
 }
 
+.file-input-label {
+    display: block; /* Makes the label a block element, positioning it more flexibly */
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+.file-input {
+    width: 100%; /* Ensures input takes full width of its container */
+    padding: 8px 0; /* Vertical padding only */
+    outline: none; /* Removes the default focus outline */
+    text-align: left; /* Ensures text alignment is left */
+    cursor: pointer; /* Makes the cursor indicate clickable input */
+}
+
+
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="number"] {
     width: 100%;
-    padding: 8px;
+    padding: 8px; /* Ensures padding inside the input fields */
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    text-align: left; /* Aligns text to the left */
 }
-
-input[type="number"] {
-    width: 100%; /* Takes full width of the form container, adjust as necessary */
-    padding: 8px;
-    margin-bottom: 20px; /* Space below each input */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
 
 textarea {
-    width: 87%;
-    padding: 8%;
-    text-align: left;
+    width: 100%; /* Full width to match input fields */
+    padding: 8px; /* Padding inside the textarea, similar to input fields */
+    height: 150px; /* Set a fixed height */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: left; /* Ensures text starts from the left */
+    resize: vertical; /* Allows resizing only vertically */
 }
 
+
 .submit-button button {
-    width: 100%;
-    padding: 10px;
-    background-color: #ac4001;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    width: 100px; /* Sets button width */
+    padding: 10px; /* Adds padding inside the button */
+    background-color: #ac4001; /* Sets button background color */
+    color: white; /* Sets text color on the button */
+    border: none; /* Removes default button border */
+    border-radius: 4px; /* Rounds the corners of the button */
+    cursor: pointer; /* Changes cursor to pointer on hover */
 }
 
 .submit-button button:hover {
-    background-color: #913602;
+    background-color: #913602; /* Changes button background color on hover */
 }
-
 
 /* Footer and additional links */
 footer {
-    background-color: #f4f4f4;
-    color: #333;
-    text-align: center;
-    padding: 20px 10px;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
+    background-color: #f4f4f4; /* Sets background color of the footer */
+    color: #333; /* Sets text color in the footer */
+    text-align: center; /* Centers text horizontally in the footer */
+    padding: 20px 10px; /* Adds padding inside the footer */
+    position: fixed; /* Fixes the footer at the bottom of the viewport */
+    left: 0; /* Aligns the footer to the left edge of the viewport */
+    bottom: 0; /* Positions the footer at the bottom of the viewport */
+    width: 100%; /* Ensures the footer spans the full width of the viewport */
 }
 
 a {
-    color: #007BFF;
-    text-decoration: none;
+    color: #007BFF; /* Sets the color of links */
+    text-decoration: none; /* Removes underline from links */
 }
+
 a:hover {
-    text-decoration: underline;
+    text-decoration: underline; /* Adds underline to links on hover */
 }
 
 @media (max-width: 1024px) {
     .item {
-        width: calc(50% - 20px); /* 2 items per row on smaller desktops and tablets */
+        width: calc(50% - 20px); /* Adjusts item width to fit 2 items per row on smaller screens */
     }
 }
 
 @media (max-width: 768px) {
     .item {
-        width: calc(100% - 20px); /* 1 item per row on mobile devices */
+        width: calc(100% - 20px); /* Adjusts item width to fit 1 item per row on mobile devices */
     }
 
     nav {
-        flex-direction: column;
-        padding: 20px;
+        flex-direction: column; /* Stacks nav items vertically on smaller screens */
+        padding: 20px; /* Adds more padding for touch targets */
     }
 
     nav button {
-        width: 100%; /* Full width buttons in mobile nav */
-        margin-top: 10px;
+        width: 100%; /* Makes buttons full width in the mobile nav */
+        margin-top: 10px; /* Adds space above buttons in the mobile nav */
     }
 }
+
+/* Styles for item details layout */
+.item-container {
+    display: flex; /* Enables flexbox layout within this container */
+    align-items: right; /* Aligns items vertically in the center */
+    justify-content: space-around; /* Adds space between the items and container edges */
+    margin: 20px; /* Adds margin around the container */
+}
+
+.item-image {
+    flex: 1; /* Allows the image container to grow and take up space */
+    padding: 10px; /* Adds padding around the image for spacing */
+    max-width: 50%; /* Restricts the image container to half of the parent container's width */
+    align-items: center;
+}
+
+.item-details {
+    flex: 2; /* Allows the details section to take twice as much space as the image */
+    padding: 10px; /* Adds padding around the text for spacing */
+    padding-left: 100px;
+    display: flex; /* Enables flexbox layout */
+    flex-direction: column; /* Stacks child elements vertically */
+    justify-content: flex-start; /* Aligns content to the top of the container */
+    align-items: flex-start; /* Aligns items to the start (left) of the container */
+}
+
