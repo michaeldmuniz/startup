@@ -7,75 +7,81 @@
     <title>Shop</title>
 </head>
 <body>
-    <nav>
-        <button onclick="window.location.href='sell-item.html'">Sell an item</button>
-        <button onclick="window.location.href='login.html'">Sign In</button>
-    </nav>
-    <h1>Welcome to Our Shop</h1>
-    <p>Browse through our items below!</p>
-
-    <!-- Placeholder for items -->
-    <div class="items-list">
-        <div class="item">
-            <h2>Item 1</h2>
-            <img src="public/Capture.JPG" alt="Item Image">
-            <p>Price: $10</p>
-            <button onclick="window.location.href='item.html?id=1'">View Item</button>
+    <div class="app-container">
+        <nav class="navbar fixed-top navbar-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="sell-item.html">Sell an item</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Go to Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Sign In</a>
+                </li>
+            </ul>
+        </nav>
+        <h1>Welcome to Our Shop</h1>
+        <p>Browse through our items below!</p>
+        <div class="items-list">
+            <!-- Multiple items can be listed similarly -->
+            <div class="item">
+                <h2>Item 1</h2>
+                <img src="public/Capture.JPG" alt="Item Image">
+                <p>Price: $10</p>
+                <button onclick="window.location.href='item.html?id=1'">View Item</button>
+            </div>
+            <div class="item">
+                <h2>Item 2</h2>
+                <img src="public/Capture.JPG" alt="Item Image">
+                <p>Price: $20</p>
+                <button onclick="window.location.href='item.html?id=2'">View Item</button>
+            </div>
+            <div class="item">
+                <h2>Item 3</h2>
+                <img src="public/Capture.JPG" alt="Item Image">
+                <p>Price: $20</p>
+                <button onclick="window.location.href='item.html?id=3'">View Item</button>
+            </div>
+            <div class="item">
+                <h2>Item 4</h2>
+                <img src="public/Capture.JPG" alt="Item Image">
+                <p>Price: $20</p>
+                <button onclick="window.location.href='item.html?id=4'">View Item</button>
+            </div>
+            <div class="item">
+                <h2>Item 5</h2>
+                <img src="public/Capture.JPG" alt="Item Image">
+                <p>Price: $20</p>
+                <button onclick="window.location.href='item.html?id=5'">View Item</button>
+            </div>
+            <div class="item">
+                <h2>Item 6</h2>
+                <img src="public/Capture.JPG" alt="Item Image">
+                <p>Price: $20</p>
+                <button onclick="window.location.href='item.html?id=6'">View Item</button>
+            </div>
+            <div class="item">
+                <h2>Item 7</h2>
+                <img src="public/Capture.JPG" alt="Item Image">
+                <p>Price: $20</p>
+                <button onclick="window.location.href='item.html?id=7'">View Item</button>
+            </div>
+            <div class="item">
+                <h2>Item 8</h2>
+                <img src="public/Capture.JPG" alt="Item Image">
+                <p>Price: $20</p>
+                <button onclick="window.location.href='item.html?id=8'">View Item</button>
+            </div>
         </div>
-        <div class="item">
-            <h2>Item 2</h2>
-            <img src="public/Capture.JPG" alt="Item Image">
-            <p>Price: $20</p>
-            <button onclick="window.location.href='item.html?id=2'">View Item</button>
+        <div>
+            <h2>Websocket data and Database Data</h2>
+            <p>Database Data will be used to store user data, product information, transactions, etc.</p>
+            <p>Websocket Data will be used to see real-time posts from other users who are selling products.</p>
         </div>
-        <div class="item">
-            <h2>Item 3</h2>
-            <img src="public/Capture.JPG" alt="Item Image">
-            <p>Price: $20</p>
-            <button onclick="window.location.href='item.html?id=2'">View Item</button>
-        </div>
-        <div class="item">
-            <h2>Item 4</h2>
-            <img src="public/Capture.JPG" alt="Item Image">
-            <p>Price: $20</p>
-            <button onclick="window.location.href='item.html?id=2'">View Item</button>
-        </div>
-        <div class="item">
-            <h2>Item 5</h2>
-            <img src="public/Capture.JPG" alt="Item Image">
-            <p>Price: $20</p>
-            <button onclick="window.location.href='item.html?id=2'">View Item</button>
-        </div>
-        <div class="item">
-            <h2>Item 6</h2>
-            <img src="public/Capture.JPG" alt="Item Image">
-            <p>Price: $20</p>
-            <button onclick="window.location.href='item.html?id=2'">View Item</button>
-        </div>
-        <div class="item">
-            <h2>Item 7</h2>
-            <img src="public/Capture.JPG" alt="Item Image">
-            <p>Price: $20</p>
-            <button onclick="window.location.href='item.html?id=2'">View Item</button>
-        </div>
-        <div class="item">
-            <h2>Item 8</h2>
-            <img src="public/Capture.JPG" alt="Item Image">
-            <p>Price: $20</p>
-            <button onclick="window.location.href='item.html?id=2'">View Item</button>
-        </div>
-        
-        <!-- Add more items here in the future -->
+        <div>
+            <a href="https://github.com/michaeldmuniz/startup">Github Link</a>
+        </div>    
     </div>
-    <div>
-        <h2>Websocket data and Database Data</h2>
-        <p>Database Data will be used to store user data, product information, transactions, etc</p>
-        <p>Websocket Data will be used to see real time posts from other users who are selling products</p>
-
-    </div>
-    <div>
-        <a href="https://github.com/michaeldmuniz/startup">Github Link</a>
-    </div>    
-
 </body>
 </html>
