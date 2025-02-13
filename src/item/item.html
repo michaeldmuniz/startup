@@ -7,39 +7,38 @@
     <title>Item Details</title>
 </head>
 <body>
-    <div class="app-container"> <!-- Ensure general styles apply -->
-        <nav class="navbar fixed-top navbar-dark">
-            <ul class="navbar-nav"> <!-- Change from <menu> to <ul> for better HTML5 semantics -->
-                <li class="nav-item">
-                    <a class="nav-link" href="sell-item.html">Sell an item</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Go to Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.html">Sign In</a>
-                </li>
-            </ul>
-        </nav>
-        
+    <header class="navbar fixed-top navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="sell-item.html">Sell an item</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Go to Shop</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="login.html">Sign In</a>
+            </li>
+        </ul>
+    </header>
+
+    <main class="app-container">
         <h1>Item Name (Placeholder)</h1>
         <div class="item-container">
-            <div>
-                <img src="public/Capture.JPG" alt="Item Image">
-            </div>
+            <img src="public/Capture.JPG" alt="Item Image">
             <div class="item-details">
                 <p>Price: $XXX</p>
                 <p>Description: Placeholder for item description.</p>
                 <button>Message Seller</button>
             </div>
         </div>
-        <div>
+        <section>
             <h2>Websocket data</h2>
             <p>Websocket data will be used to send messages to the server and receive real-time data from the server without needing to refresh the web page</p>
-        </div>
-        <div>
-            <a href="https://github.com/michaeldmuniz/startup">Github Link</a>
-        </div>
-    </div>    
+        </section>
+    </main>
+
+    <footer>
+        <a href="https://github.com/michaeldmuniz/startup">Github Link</a>
+    </footer>
 </body>
 </html>

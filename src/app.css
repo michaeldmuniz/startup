@@ -3,22 +3,22 @@
     font-family: 'Arial', sans-serif; /* Sets the default font for the container */
     background-color: #f4f4f4; /* Sets the background color of the container */
     margin: 0; /* Removes default margin around the container */
-    padding: 0; /* Removes default padding around the container */
+    padding-top: 70px; /* Removes default padding around the container */
     color: #333; /* Sets the default text color */
 }
 
 /* Header and navigation styles */
-nav {
-    background-color: #a1a1a1; /* Sets background color of the navigation bar */
-    color: white; /* Sets the text color inside the navigation */
-    padding: 10px 40px 10px 20px; /* Pads the navigation for better spacing */
+header {
+    background-color: #a1a1a1; /* Sets background color of the header */
+    color: white; /* Sets the text color inside the header */
+    padding: 10px 40px; /* Pads the header for better spacing */
     display: flex; /* Enables flexbox for layout */
     justify-content: flex-end; /* Aligns navigation items to the right */
-    align-items: center; /* Centers items vertically within the nav */
-    width: 100%; /* Ensures the nav spans the full width of the viewport */
+    align-items: center; /* Centers items vertically within the header */
+    width: 100%; /* Ensures the header spans the full width of the viewport */
 }
 
-nav .nav-button {
+header .nav-button {
     background-color: #ac4001; /* Sets button background color */
     color: white; /* Sets button text color */
     border: none; /* Removes default button border */
@@ -28,13 +28,14 @@ nav .nav-button {
     text-decoration: none; /* Removes underline from links */
     display: inline-block; /* Allows padding and margins to be applied correctly */
     padding: 10px 20px; /* Pads buttons for better touch */
+    justify-content: flex-end; /*Aligns navigation items to the right */
 }
 
-nav .nav-button:hover {
+header .nav-button:hover {
     background-color: #913602; /* Changes button background color on hover */
 }
 
-nav .nav-button:last-child {
+header .nav-button:last-child {
     margin-right: 30px; /* Adds extra space on the right of the last button */
 }
 
@@ -73,7 +74,6 @@ footer {
     background-color: #f4f4f4; /* Sets background color of the footer */
     color: #333; /* Sets text color in the footer */
     text-align: center; /* Centers text horizontally in the footer */
-    padding: 20px 10px; /* Adds padding inside the footer */
     position: fixed; /* Fixes the footer at the bottom of the viewport */
     left: 0; /* Aligns the footer to the left edge of the viewport */
     bottom: 0; /* Positions the footer at the bottom of the viewport */
@@ -92,15 +92,15 @@ a:hover {
 /* Responsive adjustments for navigation and items */
 @media (max-width: 768px) {
     .nav-button {
-        width: 100%; /* Makes buttons full width in the mobile nav */
-        margin-top: 10px; /* Adds space above buttons in the mobile nav */
+        width: 100%; /* Makes buttons full width in the mobile header */
+        margin-top: 10px; /* Adds space above buttons in the mobile header */
     }
 
     .item {
         width: calc(100% - 20px); /* Adjusts item width to fit 1 item per row on mobile devices */
     }
 
-    nav {
-        padding: 10px; /* Adds more padding for touch targets */
+    header {
+        padding: 10px; /* Adds more padding for touch targets in the header */
     }
 }
