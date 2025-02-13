@@ -28,7 +28,6 @@ header .nav-button {
     text-decoration: none; /* Removes underline from links */
     display: inline-block; /* Allows padding and margins to be applied correctly */
     padding: 10px 20px; /* Pads buttons for better touch */
-    justify-content: flex-end; /*Aligns navigation items to the right */
 }
 
 header .nav-button:hover {
@@ -85,9 +84,6 @@ a {
     text-decoration: none; /* Removes underline from links */
 }
 
-a:hover {
-    text-decoration: underline; /* Adds underline to links on hover */
-}
 
 /* Responsive adjustments for navigation and items */
 @media (max-width: 768px) {
@@ -103,4 +99,81 @@ a:hover {
     header {
         padding: 10px; /* Adds more padding for touch targets in the header */
     }
+}
+
+/* Specific styles for the login page */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centers vertically */
+    height: 100vh; /* Full viewport height */
+    padding-top: 0; /* Removes top padding if previously set */
+    padding-bottom: 0; /* Removes bottom padding if previously set */
+    box-sizing: border-box; /* Ensures padding doesn't affect the height */
+}
+
+/* If .app-container affects .login-container */
+.app-container.login-container {
+    padding-top: 0; /* Removes top padding specifically for login if inherited */
+}
+
+.login-header {
+    color: #333;
+}
+
+.login-form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid #ac4001; /* Adds a solid blue border */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submit-button {
+    text-align: center;
+}
+
+.submit-button button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-button button:hover {
+    background-color: #0056b3;
+}
+
+.login-info {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-info h2 {
+    color: #333;
+}
+
+.login-info p {
+    color: #666;
 }
