@@ -11,7 +11,7 @@ import { Sell } from './sell-item/sell-item';
 export default function App() {
     return (
         <BrowserRouter>
-            <header className="navbar fixed-top navbar-dark bg-dark">
+            <header>
                 <NavLink to="/shop" className="nav-button">Go to Shop</NavLink>
                 <NavLink to="/sell-item" className="nav-button">Sell an item</NavLink>
                 <NavLink to="/login" className="nav-button">Sign In</NavLink>

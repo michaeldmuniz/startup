@@ -18,6 +18,10 @@ header {
     width: 100%; /* Ensures the header spans the full width of the viewport */
 }
 
+header nav{
+    width: 100%;
+}
+
 header .nav-button {
     background-color: #ac4001; /* Sets button background color */
     color: white; /* Sets button text color */
@@ -30,7 +34,7 @@ header .nav-button {
     padding: 10px 20px; /* Pads buttons for better touch */
 }
 
-header .nav-button:hover {
+header .nav-button:hover { 
     background-color: #913602; /* Changes button background color on hover */
 }
 
@@ -154,7 +158,7 @@ a {
 
 .submit-button button {
     padding: 10px 20px;
-    background-color: #007BFF;
+    background-color: #ac4001;
     color: white;
     border: none;
     border-radius: 4px;
@@ -162,7 +166,7 @@ a {
 }
 
 .submit-button button:hover {
-    background-color: #0056b3;
+    background-color: #913602;
 }
 
 .form-info {
@@ -179,7 +183,7 @@ a {
 }
 
 .form-group input, .form-group textarea {
-    width: 100%; /* Makes the input and textarea width consistent */
+    width: 100%; 
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;

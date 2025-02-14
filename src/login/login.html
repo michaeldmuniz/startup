@@ -21,24 +21,29 @@
         </ul>
     </header>
 
-    <main class="app-container">
-        <h1>Sign In</h1>
-        <form action="/submit-signin" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" required><br><br>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required><br><br>
-            <div class="submit-button">
-                <button type="submit">Sign In</button>
-            </div>
+    <main className="form-container">
+        <h1 className="form-header">Sign In</h1>
+        <form className="form-form" action="/submit-signin" method="POST">
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required />
+          </div>
+          
+          <div className="submit-button">
+            <button type="submit">Sign In</button>
+          </div>
         </form>
-
-        <section>
-            <h2>Authentication</h2>
-            <p>Websocket data will be used to send messages to the server and receive real-time data from the server without needing to refresh the web page</p>
+  
+        <section className="form-info">
+          <h2>Authentication</h2>
+          <p>Websocket data will be used to send messages to the server and receive real-time data from the server without needing to refresh the web page</p>
         </section>
-    </main>
+      </main>
 
     <footer>
         <p>Forgot your password? <a href="reset-password.html">Reset here</a></p>
