@@ -25,6 +25,7 @@ export default function App() {
             </Routes>
             <footer>
                 <a href="https://github.com/michaeldmuniz/startup">Github Link</a>
+                <p>Michael Muniz</p>
             </footer>
         </BrowserRouter>
         

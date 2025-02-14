@@ -18,10 +18,6 @@ header {
     width: 100%; /* Ensures the header spans the full width of the viewport */
 }
 
-header nav{
-    width: 100%;
-}
-
 header .nav-button {
     background-color: #ac4001; /* Sets button background color */
     color: white; /* Sets button text color */
@@ -74,14 +70,24 @@ h1, h2, p {
 
 /* Footer and additional links */
 footer {
-    background-color: #f4f4f4; /* Sets background color of the footer */
-    color: #333; /* Sets text color in the footer */
-    text-align: center; /* Centers text horizontally in the footer */
-    position: fixed; /* Fixes the footer at the bottom of the viewport */
-    left: 0; /* Aligns the footer to the left edge of the viewport */
-    bottom: 0; /* Positions the footer at the bottom of the viewport */
-    width: 100%; /* Ensures the footer spans the full width of the viewport */
+    display: flex;             /* Enables Flexbox */
+    justify-content: space-between; /* Distributes space between the children */
+    align-items: center;       /* Vertically centers the content */
+    text-align: center;        /* Ensures text is centered if it wraps */
+    background-color: #f4f4f4; /* Sets a background color */
+    color: #333;               /* Sets the text color */
+    width: 100%;               /* Ensures the footer spans the full width of the viewport */
+    position: fixed;           /* Fixes the footer at the bottom of the viewport */
+    left: 0;
+    bottom: 0;
 }
+footer div, footer p, footer a {
+    flex: 1;                   /* Gives each child equal width */
+    margin: 0 10px;            /* Adds margin for spacing between elements */
+    white-space: nowrap;       /* Prevents wrapping of text */
+}
+
+
 
 a {
     color: #007BFF; /* Sets the color of links */
