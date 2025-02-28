@@ -1,6 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
   export function Shop() {
+    const [msg, setMsg] = React.useState('... listening for messages ...');
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const names = ['Alice', 'Bob', 'Charlie', 'David', 'Eve'];
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const newMsg = `${randomName} has items in their cart.`;
+            setMsg(newMsg);
+        }, 1000); // Update every 1 second
+
+        return () => clearInterval(interval); // Cleanup on unmount
+    }, []);
+
     return (
         <main className="app-container">
             <h1>Welcome to Our Shop</h1>
@@ -10,49 +23,52 @@ import React from 'react';
                     <h2>Item 1</h2>
                     <img src="Capture.JPG" alt="Item Image"/>
                     <p>Price: $10</p>
-                    <button onclick="window.location.href='item.html?id=1'">View Item</button>
+                    <button onClick="window.location.href='item.html?id=1'">View Item</button>
                 </div>
                 <div className="item">
                     <h2>Item 2</h2>
                     <img src="Capture.JPG" alt="Item Image"/>
                     <p>Price: $20</p>
-                    <button onclick="window.location.href='item.html?id=2'">View Item</button>
+                    <button onClick="window.location.href='item.html?id=2'">View Item</button>
                 </div>
                 <div className="item">
                     <h2>Item 3</h2>
                     <img src="Capture.JPG" alt="Item Image"/>
                     <p>Price: $30</p>
-                    <button onclick="window.location.href='item.html?id=3'">View Item</button>
+                    <button onClick="window.location.href='item.html?id=3'">View Item</button>
                 </div>
                 <div className="item">
                     <h2>Item 4</h2>
                     <img src="Capture.JPG" alt="Item Image"/>
                     <p>Price: $40</p>
-                    <button onclick="window.location.href='item.html?id=4'">View Item</button>
+                    <button onClick="window.location.href='item.html?id=4'">View Item</button>
                 </div>
                 <div className="item">
                     <h2>Item 5</h2>
                     <img src="Capture.JPG" alt="Item Image"/>
                     <p>Price: $50</p>
-                    <button onclick="window.location.href='item.html?id=5'">View Item</button>
+                    <button onClick="window.location.href='item.html?id=5'">View Item</button>
                 </div>
                 <div className="item">
                     <h2>Item 6</h2>
                     <img src="Capture.JPG" alt="Item Image"/>
                     <p>Price: $60</p>
-                    <button onclick="window.location.href='item.html?id=6'">View Item</button>
+                    <button onClick="window.location.href='item.html?id=6'">View Item</button>
                 </div>
                 <div className="item">
                     <h2>Item 7</h2>
                     <img src="Capture.JPG" alt="Item Image"/>
                     <p>Price: $70</p>
-                    <button onclick="window.location.href='item.html?id=7'">View Item</button>
+                    <button onClick="window.location.href='item.html?id=7'">View Item</button>
                 </div>
                 <div className="item">
                     <h2>Item 8</h2>
                     <img src="Capture.JPG" alt="Item Image"/>
                     <p>Price: $80</p>
-                    <button onclick="window.location.href='item.html?id=8'">View Item</button>
+                    <button onClick="window.location.href='item.html?id=8'">View Item</button>
+                </div>
+                <div>
+                    {msg}
                 </div>
             </div>
         </main>

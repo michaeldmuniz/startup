@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
@@ -9,16 +9,18 @@ import { Login } from './login/login';
 import { Sell } from './sell-item/sell-item';
 
 export default function App() {
+    const [user, setUser] = React.useState(localStorage.getItem('user') || null)
     return (
         <BrowserRouter>
             <header>
+                {user}
                 <NavLink to="/shop" className="nav-button">Go to Shop</NavLink>
                 <NavLink to="/sell-item" className="nav-button">Sell an item</NavLink>
                 <NavLink to="/login" className="nav-button">Sign In</NavLink>
             </header>
             <Routes>
                 <Route path="/" element={<Shop />} exact />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login setUser = {setUser}/>} />
                 <Route path="/sell-item" element={<Sell />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="*" element={<NotFound />} />
