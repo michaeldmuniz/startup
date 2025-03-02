@@ -1,42 +1,59 @@
-import React from 'react';
-import { BrowserRouter, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
-// Import components
 import { Shop } from './shop/shop';
 import { Login } from './login/login';
+import { Register } from './register/register';
 import { Sell } from './sell-item/sell-item';
 
 export default function App() {
-    const [user, setUser] = React.useState(localStorage.getItem('user') || null)
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        setUser(localStorage.getItem('loggedInUser'));
+    }, []);
+
+    function logout() {
+        localStorage.removeItem('loggedInUser');
+        setUser(null);
+    }
+
     return (
         <BrowserRouter>
             <header>
-                {user}
+                {user ? (
+                    <>
+                        <span>Welcome, {user}</span>
+                        <button className="nav-button" onClick={logout}>Sign Out</button>
+                    </>
+                ) : (
+                    <>
+                        <NavLink to="/login" className="nav-button">Sign In</NavLink>
+                        <NavLink to="/register" className="nav-button">Register</NavLink>
+                    </>
+                )}
                 <NavLink to="/shop" className="nav-button">Go to Shop</NavLink>
                 <NavLink to="/sell-item" className="nav-button">Sell an item</NavLink>
-                <NavLink to="/login" className="nav-button">Sign In</NavLink>
             </header>
             <Routes>
-                <Route path="/" element={<Shop />} exact />
-                <Route path="/login" element={<Login setUser = {setUser}/>} />
+                <Route path="/" element={<Shop />} />
+                <Route path="/login" element={<Login setUser={setUser} />} />
+                <Route path="/register" element={<Register />} />
                 <Route path="/sell-item" element={<Sell />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-            <footer>
-                <a href="https://github.com/michaeldmuniz/startup">Github Link</a>
-                <p>Michael Muniz</p>
-            </footer>
         </BrowserRouter>
-        
     );
 }
 
 function NotFound() {
-    return <div className="container-fluid bg-secondary text-center">
-        <h1>404: Page Not Found</h1>
-        <p>Oops! The page you are looking for does not exist. Please use the navigation to find your way.</p>
-    </div>;
+    return (
+        <div className="container-fluid bg-secondary text-center">
+            <h1>404: Page Not Found</h1>
+            <p>Oops! The page you are looking for does not exist.</p>
+        </div>
+    );
 }
