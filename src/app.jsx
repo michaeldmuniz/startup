@@ -35,7 +35,7 @@ export default function App() {
                     </>
                 )}
                 <NavLink to="/shop" className="nav-button">Go to Shop</NavLink>
-                <NavLink to="/sell-item" className="nav-button">Sell an item</NavLink>
+                {user && <NavLink to="/sell-item" className="nav-button">Sell an item</NavLink>}
             </header>
             <Routes>
                 <Route path="/" element={<Shop />} />
