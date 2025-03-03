@@ -30,10 +30,7 @@ export default function App() {
                         <button className="nav-button" onClick={logout}>Sign Out</button>
                     </>
                 ) : (
-                    <>
-                        <NavLink to="/login" className="nav-button">Sign In</NavLink>
-                        <NavLink to="/register" className="nav-button">Register</NavLink>
-                    </>
+                    <NavLink to="/login" className="nav-button">Sign In</NavLink>
                 )}
                 <NavLink to="/shop" className="nav-button">Go to Shop</NavLink>
                 {user && <NavLink to="/sell-item" className="nav-button">Sell an item</NavLink>}

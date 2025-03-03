@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 export function Login({ setUser }) {
     const [username, setUsername] = useState('');
@@ -9,10 +9,7 @@ export function Login({ setUser }) {
     function loginUser(event) {
         event.preventDefault();
 
-        // Get stored users
         let users = JSON.parse(localStorage.getItem('users')) || [];
-
-        // Find matching user
         let user = users.find(user => user.username === username && user.password === password);
 
         if (user) {
@@ -40,6 +37,9 @@ export function Login({ setUser }) {
                     <button type="submit">Sign In</button>
                 </div>
             </form>
+            <section className="form-info">
+                <p>Don't have an account? <NavLink to="/register">Register here</NavLink>.</p>
+            </section>
         </main>
     );
 }
