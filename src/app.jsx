@@ -7,6 +7,7 @@ import { Shop } from './shop/shop';
 import { Login } from './login/login';
 import { Register } from './register/register';
 import { Sell } from './sell-item/sell-item';
+import { MyItems } from './my-items/my-items';
 
 export default function App() {
     const [user, setUser] = useState(null);
@@ -36,6 +37,7 @@ export default function App() {
                 )}
                 <NavLink to="/shop" className="nav-button">Go to Shop</NavLink>
                 {user && <NavLink to="/sell-item" className="nav-button">Sell an item</NavLink>}
+                {user && <NavLink to="/my-items" className="nav-button">My Items</NavLink>}
             </header>
             <Routes>
                 <Route path="/" element={<Shop />} />
@@ -43,6 +45,7 @@ export default function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/sell-item" element={<Sell />} />
                 <Route path="/shop" element={<Shop />} />
+                <Route path="/my-items" element={<MyItems />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
