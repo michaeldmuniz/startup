@@ -45,6 +45,14 @@ export default function App() {
                 <Route path="/my-items" element={<MyItems />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
+            <footer>
+                <div className="container-fluid bg-secondary text-center">
+                    <p>Michael Muniz</p>
+                    <a href="https://github.com/michaeldmuniz/startup" target="_blank" rel="noopener noreferrer">
+                        Github Link
+                    </a>
+                </div>
+            </footer>
         </BrowserRouter>
     );
 }
