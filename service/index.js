@@ -2,6 +2,7 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
+const fetch = require('node-fetch');
 const app = express();
 
 const authCookieName = 'token';
@@ -22,6 +23,28 @@ app.use(express.static('public'));
 // Router for service endpoints
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
+
+// Third-party API integration - Affirmations
+apiRouter.get('/daily-affirmation', async (req, res) => {
+  try {
+    const response = await fetch('https://www.affirmations.dev/');
+    if (!response.ok) {
+      throw new Error('Failed to fetch affirmation');
+    }
+    const data = await response.json();
+    res.json({
+      message: data.affirmation,
+      timestamp: new Date(),
+      source: 'affirmations.dev'
+    });
+  } catch (error) {
+    console.error('Affirmation fetch error:', error);
+    res.status(500).json({ 
+      message: 'Failed to get daily affirmation',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
 
 // Create a new user
 apiRouter.post('/auth/create', async (req, res) => {
@@ -81,19 +104,41 @@ apiRouter.get('/items', async (req, res) => {
 });
 
 apiRouter.post('/items', verifyAuth, async (req, res) => {
-  const item = {
-    id: uuid.v4(),
-    sellerId: req.user.id,
-    title: req.body.title,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    images: req.body.images || [],
-    createdAt: new Date(),
-    status: 'available'
-  };
-  items.push(item);
-  res.send(item);
+  try {
+    // Fetch an affirmation for the seller
+    let affirmation = "Keep up the great work!"; // Default message
+    try {
+      const affirmationResponse = await fetch('https://www.affirmations.dev/');
+      if (affirmationResponse.ok) {
+        const affirmationData = await affirmationResponse.json();
+        affirmation = affirmationData.affirmation;
+      }
+    } catch (affirmationError) {
+      console.error('Affirmation fetch failed:', affirmationError);
+      // Continue with default affirmation
+    }
+
+    const item = {
+      id: uuid.v4(),
+      sellerId: req.user.id,
+      title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      images: req.body.images || [],
+      createdAt: new Date(),
+      status: 'available',
+      sellerMessage: affirmation // Include the affirmation with the item
+    };
+    items.push(item);
+    res.send(item);
+  } catch (error) {
+    console.error('Error creating item:', error);
+    res.status(500).json({ 
+      message: 'Failed to create item',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
 });
 
 apiRouter.get('/items/:id', async (req, res) => {
