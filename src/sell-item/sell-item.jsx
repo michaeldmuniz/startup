@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 export function Sell() {
     const navigate = useNavigate();
     const [user, setUser] = useState(localStorage.getItem('loggedInUser'));
-    const [itemName, setItemName] = useState('');
-    const [brand, setBrand] = useState('');
-    const [itemPrice, setItemPrice] = useState('');
-    const [itemDescription, setItemDescription] = useState('');
-    const [contactInfo, setContactInfo] = useState('');
-    const [itemImage, setItemImage] = useState(null);
+    const [title, setTitle] = useState('');
+    const [price, setPrice] = useState('');
+    const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [images, setImages] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (!user) {
@@ -18,74 +18,115 @@ export function Sell() {
         }
     }, [user, navigate]);
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
+        setError(null);
 
-        let items = JSON.parse(localStorage.getItem('shopItems')) || [];
+        try {
+            const response = await fetch('/api/items', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title,
+                    price: parseFloat(price),
+                    description,
+                    category,
+                    images
+                }),
+            });
 
-        const newItem = {
-            id: Date.now(),
-            name: itemName,
-            brand: brand,
-            price: itemPrice,
-            description: itemDescription,
-            contact: contactInfo,
-            image: itemImage,
-            seller: user,
-        };
+            if (!response.ok) {
+                throw new Error('Failed to create item');
+            }
 
-        items.push(newItem);
-        localStorage.setItem('shopItems', JSON.stringify(items));
-
-        alert('Item successfully listed for sale!');
-        navigate('/shop');
-    }
-
-    function handleImageUpload(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => setItemImage(reader.result);
-            reader.readAsDataURL(file);
+            alert('Item successfully listed for sale!');
+            navigate('/shop');
+        } catch (error) {
+            console.error('Error creating item:', error);
+            setError('Failed to create item. Please try again.');
         }
     }
 
+    function handleImageUpload(event) {
+        const files = Array.from(event.target.files);
+        const imagePromises = files.map(file => {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(file);
+            });
+        });
+
+        Promise.all(imagePromises)
+            .then(imageUrls => {
+                setImages(imageUrls);
+            })
+            .catch(error => {
+                console.error('Error processing images:', error);
+                setError('Failed to process images. Please try again.');
+            });
+    }
+
     return (
-        <main className="form-container">  
-            <h1 className="form-header">Sell Your Item</h1>
+        <main className="form-container">
+            <h1>List an Item for Sale</h1>
+            {error && <p className="error-message">{error}</p>}
             <form className="form-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="item-name">Item Name:</label>
-                    <input type="text" id="item-name" value={itemName} onChange={(e) => setItemName(e.target.value)} placeholder="Enter item name" required />
+                    <label htmlFor="title">Title:</label>
+                    <input
+                        type="text"
+                        id="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        required
+                    />
                 </div>
-
                 <div className="form-group">
-                    <label htmlFor="brand">Brand Name:</label>
-                    <input type="text" id="brand" value={brand} onChange={(e) => setBrand(e.target.value)} placeholder="Enter brand name (e.g., Nike, Apple)" required />
+                    <label htmlFor="price">Price ($):</label>
+                    <input
+                        type="number"
+                        id="price"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        min="0"
+                        step="0.01"
+                        required
+                    />
                 </div>
-
                 <div className="form-group">
-                    <label htmlFor="item-price">Price:</label>
-                    <input type="number" id="item-price" value={itemPrice} onChange={(e) => setItemPrice(e.target.value)} placeholder="Enter item price" required />
+                    <label htmlFor="category">Category:</label>
+                    <input
+                        type="text"
+                        id="category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        required
+                    />
                 </div>
-
                 <div className="form-group">
-                    <label htmlFor="item-description">Description:</label>
-                    <textarea id="item-description" value={itemDescription} onChange={(e) => setItemDescription(e.target.value)} placeholder="Describe the item" required></textarea>
+                    <label htmlFor="description">Description:</label>
+                    <textarea
+                        id="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        required
+                    />
                 </div>
-
                 <div className="form-group">
-                    <label htmlFor="contact-info">Contact Information:</label>
-                    <input type="text" id="contact-info" value={contactInfo} onChange={(e) => setContactInfo(e.target.value)} placeholder="Enter email or phone number" required />
+                    <label htmlFor="images">Images:</label>
+                    <input
+                        type="file"
+                        id="images"
+                        accept="image/*"
+                        multiple
+                        onChange={handleImageUpload}
+                    />
                 </div>
-
-                <div className="form-group file-input-group">
-                    <label htmlFor="item-image">Item Image:</label>
-                    <input type="file" id="item-image" onChange={handleImageUpload} />
-                </div>
-
                 <div className="submit-button">
-                    <button type="submit">Submit Item</button>
+                    <button type="submit">List Item</button>
                 </div>
             </form>
         </main>
