@@ -2,12 +2,12 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const app = express();
 
 const authCookieName = 'token';
 
-// Store data in memory (TODO: Replace with MongoDB)
+// Store data in memory, waiting for DB module
 let users = [];
 let items = [];
 let conversations = [];
@@ -139,6 +139,21 @@ apiRouter.post('/items', verifyAuth, async (req, res) => {
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
+});
+
+apiRouter.delete('/items/:id', verifyAuth, async (req, res) => {
+  const item = items.find(i => i.id === req.params.id);
+  if (!item) {
+    return res.status(404).send({ msg: 'Item not found' });
+  }
+
+  // Only allow the seller to delete their own items
+  if (item.sellerId !== req.user.id) {
+    return res.status(403).send({ msg: 'Not authorized to delete this item' });
+  }
+
+  items = items.filter(i => i.id !== req.params.id);
+  res.status(204).end();
 });
 
 apiRouter.get('/items/:id', async (req, res) => {

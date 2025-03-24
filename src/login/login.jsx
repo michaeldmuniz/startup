@@ -20,8 +20,8 @@ export function Login({ setUser }) {
 
             if (response.ok) {
                 const user = await response.json();
-                localStorage.setItem('loggedInUser', user.username);
-                setUser(user.username);
+                localStorage.setItem('loggedInUser', user.email);
+                setUser(user.email);
                 navigate('/shop');
             } else {
                 const error = await response.json();

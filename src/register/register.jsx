@@ -2,28 +2,33 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function Register() {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    function registerUser(event) {
+    async function registerUser(event) {
         event.preventDefault();
 
-        // Get existing users from localStorage
-        let users = JSON.parse(localStorage.getItem('users')) || [];
+        try {
+            const response = await fetch('/api/auth/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-        // Check if username already exists
-        if (users.some(user => user.username === username)) {
-            alert('Username already exists. Please choose a different one.');
-            return;
+            if (response.ok) {
+                alert('Registration successful! Please log in.');
+                navigate('/login');
+            } else {
+                const error = await response.json();
+                alert(error.msg || 'Registration failed');
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert('Failed to register. Please try again.');
         }
-
-        // Store new user
-        users.push({ username, password });
-        localStorage.setItem('users', JSON.stringify(users));
-
-        alert('Registration successful! Please log in.');
-        navigate('/login');
     }
 
     return (
@@ -31,12 +36,24 @@ export function Register() {
             <h1 className="form-header">Register</h1>
             <form className="form-form" onSubmit={registerUser}>
                 <div className="form-group">
-                    <label htmlFor="username">Username:</label>
-                    <input type="text" onChange={(e) => setUsername(e.target.value)} id="username" placeholder="Enter your username" required />
+                    <label htmlFor="email">Email:</label>
+                    <input 
+                        type="email" 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        id="email" 
+                        placeholder="Enter your email" 
+                        required 
+                    />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password:</label>
-                    <input type="password" onChange={(e) => setPassword(e.target.value)} id="password" placeholder="Enter your password" required />
+                    <input 
+                        type="password" 
+                        onChange={(e) => setPassword(e.target.value)} 
+                        id="password" 
+                        placeholder="Enter your password" 
+                        required 
+                    />
                 </div>
                 <div className="submit-button">
                     <button type="submit">Register</button>
