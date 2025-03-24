@@ -1,0 +1,5 @@
+{
+  "hostname": "YOUR_MONGODB_HOSTNAME",
+  "userName": "YOUR_MONGODB_USERNAME",
+  "password": "YOUR_MONGODB_PASSWORD"
+} 
