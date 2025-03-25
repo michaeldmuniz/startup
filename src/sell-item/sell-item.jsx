@@ -22,12 +22,19 @@ export function Sell() {
         event.preventDefault();
         setError(null);
 
+        if (!user) {
+            setError('You must be logged in to create an item');
+            navigate('/login');
+            return;
+        }
+
         try {
             const response = await fetch('/api/items', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     title,
                     price: parseFloat(price),
@@ -38,14 +45,20 @@ export function Sell() {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to create item');
+                const errorData = await response.json();
+                if (response.status === 401) {
+                    setError('Your session has expired. Please log in again.');
+                    navigate('/login');
+                    return;
+                }
+                throw new Error(errorData.msg || 'Failed to create item');
             }
 
             alert('Item successfully listed for sale!');
             navigate('/shop');
         } catch (error) {
             console.error('Error creating item:', error);
-            setError('Failed to create item. Please try again.');
+            setError(error.message || 'Failed to create item. Please try again.');
         }
     }
 
