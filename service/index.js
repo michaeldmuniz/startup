@@ -12,7 +12,8 @@ const authCookieName = 'token';
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 // Middleware
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
 app.use(express.static('public'));
 
@@ -104,24 +105,29 @@ apiRouter.get('/items/user', async (req, res) => {
 
 // CreateItem - create a new item listing
 apiRouter.post('/items', async (req, res) => {
-  const user = await DB.getUserByToken(req.cookies[authCookieName]);
-  if (!user) {
-    res.status(401).send({ msg: 'Unauthorized' });
-    return;
+  try {
+    const user = await DB.getUserByToken(req.cookies[authCookieName]);
+    if (!user) {
+      res.status(401).send({ msg: 'Unauthorized' });
+      return;
+    }
+
+    const item = {
+      sellerId: user._id,
+      title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      images: req.body.images || [],
+      createdAt: new Date(),
+    };
+
+    const createdItem = await DB.addItem(item);
+    res.status(201).json(createdItem);
+  } catch (error) {
+    console.error('Error creating item:', error);
+    res.status(500).json({ msg: 'Failed to create item', error: error.message });
   }
-
-  const item = {
-    sellerId: user._id,
-    title: req.body.title,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    images: req.body.images || [],
-    createdAt: new Date(),
-  };
-
-  await DB.addItem(item);
-  res.send(item);
 });
 
 // DeleteItem - delete an item
