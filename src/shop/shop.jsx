@@ -40,7 +40,7 @@ export function Shop() {
                             <p><strong>Price:</strong> ${item.price}</p>
                             <p><strong>Description:</strong> {item.description}</p>
                             <p><strong>Category:</strong> {item.category}</p>
-                            <p><strong>Seller:</strong> {item.seller?.username}</p>
+                            <p><strong>Seller:</strong> {item.sellerEmail}</p>
                             {item.sellerMessage && (
                                 <p><strong>Seller's Message:</strong> {item.sellerMessage}</p>
                             )}

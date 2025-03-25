@@ -51,7 +51,16 @@ async function addItem(item) {
 
 async function getItems() {
   try {
-    return await itemCollection.find().toArray();
+    const items = await itemCollection.find().toArray();
+    // Get seller emails for all items
+    const itemsWithSellerInfo = await Promise.all(items.map(async (item) => {
+      const seller = await userCollection.findOne({ _id: new ObjectId(item.sellerId) });
+      return {
+        ...item,
+        sellerEmail: seller ? seller.email : 'Unknown Seller'
+      };
+    }));
+    return itemsWithSellerInfo;
   } catch (error) {
     console.error('Error getting items:', error);
     throw error;
