@@ -1,5 +1,5 @@
 {
-  "hostname": "mongodb+srv://mongo:<db_password>@cluster0.u9c2c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+  "hostname": "cluster0.u9c2c.mongodb.net",
   "userName": "mongo",
   "password": "HiIziN3M6E5ZgN4M"
 } 

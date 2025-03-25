@@ -4,13 +4,9 @@ const express = require('express');
 const uuid = require('uuid');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const app = express();
+const DB = require('./database.js');
 
 const authCookieName = 'token';
-
-// Store data in memory, waiting for DB module
-let users = [];
-let items = [];
-let conversations = [];
 
 // The service port
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -46,50 +42,108 @@ apiRouter.get('/daily-affirmation', async (req, res) => {
   }
 });
 
-// Create a new user
+// CreateAuth - create a new user account
 apiRouter.post('/auth/create', async (req, res) => {
-  if (await findUser('email', req.body.email)) {
-    res.status(409).send({ msg: 'Email already registered' });
+  if (await DB.getUser(req.body.email)) {
+    res.status(409).send({ msg: 'Existing user' });
   } else {
-    const user = await createUser(req.body.email, req.body.password, req.body.username);
+    const user = {
+      email: req.body.email,
+      password: await bcrypt.hash(req.body.password, 10),
+      token: uuid.v4(),
+    };
+
+    await DB.addUser(user);
     setAuthCookie(res, user.token);
-    res.send({ 
-      email: user.email,
-      username: user.username 
-    });
+    res.send({ email: user.email });
   }
 });
 
-// Login an existing user
+// GetAuth - authenticate existing user
 apiRouter.post('/auth/login', async (req, res) => {
-  const user = await findUser('email', req.body.email);
+  const user = await DB.getUser(req.body.email);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
+      await DB.updateUser(user);
       setAuthCookie(res, user.token);
-      res.send({ 
-        email: user.email,
-        username: user.username 
-      });
+      res.send({ email: user.email });
       return;
     }
   }
-  res.status(401).send({ msg: 'Invalid email or password' });
+  res.status(401).send({ msg: 'Unauthorized' });
 });
 
-// Logout a user
+// DeleteAuth - delete the authentication token
 apiRouter.delete('/auth/logout', async (req, res) => {
-  const user = await findUser('token', req.cookies[authCookieName]);
+  const user = await DB.getUserByToken(req.cookies[authCookieName]);
   if (user) {
-    delete user.token;
+    user.token = null;
+    await DB.updateUser(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
 });
 
+// GetItems - return all items
+apiRouter.get('/items', async (req, res) => {
+  const items = await DB.getItems();
+  res.send(items);
+});
+
+// GetUserItems - return items for authenticated user
+apiRouter.get('/items/user', async (req, res) => {
+  const user = await DB.getUserByToken(req.cookies[authCookieName]);
+  if (!user) {
+    res.status(401).send({ msg: 'Unauthorized' });
+    return;
+  }
+  const items = await DB.getItemsByUser(user._id);
+  res.send(items);
+});
+
+// CreateItem - create a new item listing
+apiRouter.post('/items', async (req, res) => {
+  const user = await DB.getUserByToken(req.cookies[authCookieName]);
+  if (!user) {
+    res.status(401).send({ msg: 'Unauthorized' });
+    return;
+  }
+
+  const item = {
+    sellerId: user._id,
+    title: req.body.title,
+    description: req.body.description,
+    price: req.body.price,
+    category: req.body.category,
+    images: req.body.images || [],
+    createdAt: new Date(),
+  };
+
+  await DB.addItem(item);
+  res.send(item);
+});
+
+// DeleteItem - delete an item
+apiRouter.delete('/items/:id', async (req, res) => {
+  const user = await DB.getUserByToken(req.cookies[authCookieName]);
+  if (!user) {
+    res.status(401).send({ msg: 'Unauthorized' });
+    return;
+  }
+
+  const deleted = await DB.deleteItem(req.params.id, user._id);
+  if (!deleted) {
+    res.status(404).send({ msg: 'Item not found or unauthorized' });
+    return;
+  }
+
+  res.send({ msg: 'Item deleted' });
+});
+
 // Auth middleware
 const verifyAuth = async (req, res, next) => {
-  const user = await findUser('token', req.cookies[authCookieName]);
+  const user = await DB.getUserByToken(req.cookies[authCookieName]);
   if (user) {
     req.user = user; // Attach user to request
     next();
@@ -98,83 +152,9 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-// Items endpoints
-apiRouter.get('/items', async (req, res) => {
-  res.send(items);
-});
-
-apiRouter.post('/items', verifyAuth, async (req, res) => {
-  try {
-    // Fetch an affirmation for the seller
-    let affirmation = "Keep up the great work!"; // Default message
-    try {
-      const affirmationResponse = await fetch('https://www.affirmations.dev/');
-      if (affirmationResponse.ok) {
-        const affirmationData = await affirmationResponse.json();
-        affirmation = affirmationData.affirmation;
-      }
-    } catch (affirmationError) {
-      console.error('Affirmation fetch failed:', affirmationError);
-      // Continue with default affirmation
-    }
-
-    const item = {
-      id: uuid.v4(),
-      sellerId: req.user.id,
-      title: req.body.title,
-      description: req.body.description,
-      price: req.body.price,
-      category: req.body.category,
-      images: req.body.images || [],
-      createdAt: new Date(),
-      status: 'available',
-      sellerMessage: affirmation // Include the affirmation with the item
-    };
-    items.push(item);
-    res.send(item);
-  } catch (error) {
-    console.error('Error creating item:', error);
-    res.status(500).json({ 
-      message: 'Failed to create item',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
-});
-
-apiRouter.delete('/items/:id', verifyAuth, async (req, res) => {
-  const item = items.find(i => i.id === req.params.id);
-  if (!item) {
-    return res.status(404).send({ msg: 'Item not found' });
-  }
-
-  // Only allow the seller to delete their own items
-  if (item.sellerId !== req.user.id) {
-    return res.status(403).send({ msg: 'Not authorized to delete this item' });
-  }
-
-  items = items.filter(i => i.id !== req.params.id);
-  res.status(204).end();
-});
-
-apiRouter.get('/items/:id', async (req, res) => {
-  const item = items.find(i => i.id === req.params.id);
-  if (item) {
-    const seller = await findUser('id', item.sellerId);
-    res.send({
-      ...item,
-      seller: {
-        username: seller.username,
-        email: seller.email
-      }
-    });
-  } else {
-    res.status(404).send({ msg: 'Item not found' });
-  }
-});
-
 // Chat endpoints
 apiRouter.post('/chat/start', verifyAuth, async (req, res) => {
-  const item = items.find(i => i.id === req.body.itemId);
+  const item = await DB.getItem(req.body.itemId);
   if (!item) {
     return res.status(404).send({ msg: 'Item not found' });
   }
@@ -188,19 +168,17 @@ apiRouter.post('/chat/start', verifyAuth, async (req, res) => {
     createdAt: new Date()
   };
   
-  conversations.push(conversation);
+  await DB.addConversation(conversation);
   res.send(conversation);
 });
 
 apiRouter.get('/chat/conversations', verifyAuth, async (req, res) => {
-  const userConversations = conversations.filter(
-    c => c.buyerId === req.user.id || c.sellerId === req.user.id
-  );
+  const userConversations = await DB.getConversations(req.user.id);
   res.send(userConversations);
 });
 
 apiRouter.post('/chat/messages', verifyAuth, async (req, res) => {
-  const conversation = conversations.find(c => c.id === req.body.conversationId);
+  const conversation = await DB.getConversation(req.body.conversationId);
   if (!conversation) {
     return res.status(404).send({ msg: 'Conversation not found' });
   }
@@ -216,7 +194,7 @@ apiRouter.post('/chat/messages', verifyAuth, async (req, res) => {
     createdAt: new Date()
   };
 
-  conversation.messages.push(message);
+  await DB.addMessage(conversation.id, message);
   res.send(message);
 });
 
@@ -231,27 +209,7 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-// User functions
-async function createUser(email, password, username) {
-  const passwordHash = await bcrypt.hash(password, 10);
-  const user = {
-    id: uuid.v4(),
-    email: email,
-    password: passwordHash,
-    username: username,
-    token: uuid.v4(),
-    createdAt: new Date()
-  };
-  users.push(user);
-  return user;
-}
-
-async function findUser(field, value) {
-  if (!value) return null;
-  return users.find((u) => u[field] === value);
-}
-
-// Auth cookie
+// setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
     secure: true,
