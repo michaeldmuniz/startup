@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
@@ -37,23 +37,48 @@ async function updateUser(user) {
 
 // Item functions
 async function addItem(item) {
-  return itemCollection.insertOne(item);
+  try {
+    if (typeof item.sellerId === 'string') {
+      item.sellerId = new ObjectId(item.sellerId);
+    }
+    const result = await itemCollection.insertOne(item);
+    return { ...item, _id: result.insertedId };
+  } catch (error) {
+    console.error('Error adding item:', error);
+    throw error;
+  }
 }
 
 async function getItems() {
-  return itemCollection.find().toArray();
+  try {
+    return await itemCollection.find().toArray();
+  } catch (error) {
+    console.error('Error getting items:', error);
+    throw error;
+  }
 }
 
 async function getItemsByUser(userId) {
-  return itemCollection.find({ sellerId: userId }).toArray();
+  try {
+    const query = { sellerId: new ObjectId(userId) };
+    return await itemCollection.find(query).toArray();
+  } catch (error) {
+    console.error('Error getting items by user:', error);
+    throw error;
+  }
 }
 
 async function deleteItem(itemId, userId) {
-  const result = await itemCollection.deleteOne({ 
-    _id: itemId,
-    sellerId: userId 
-  });
-  return result.deletedCount > 0;
+  try {
+    const result = await itemCollection.deleteOne({ 
+      _id: new ObjectId(itemId),
+      sellerId: new ObjectId(userId)
+    });
+    return result.deletedCount > 0;
+  } catch (error) {
+    console.error('Error deleting item:', error);
+    throw error;
+  }
 }
 
 module.exports = {
