@@ -1,5 +1,5 @@
 {
-  "hostname": "YOUR_MONGODB_HOSTNAME",
-  "userName": "YOUR_MONGODB_USERNAME",
-  "password": "YOUR_MONGODB_PASSWORD"
+  "hostname": "mongodb+srv://mongo:<db_password>@cluster0.u9c2c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+  "userName": "mongo",
+  "password": "HiIziN3M6E5ZgN4M"
 } 
