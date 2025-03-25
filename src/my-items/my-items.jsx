@@ -18,37 +18,37 @@ export function MyItems() {
 
     async function fetchItems() {
         try {
-            const response = await fetch('/api/items');
+            const response = await fetch('/api/items/user');
             if (!response.ok) {
                 throw new Error('Failed to fetch items');
             }
             const data = await response.json();
-            // Filter items to only show the current user's items
-            setItems(data.filter(item => item.sellerId === user));
+            setItems(data);
         } catch (error) {
             console.error('Error fetching items:', error);
             setError('Failed to load items. Please try again later.');
         }
     }
 
-    async function handleDelete(itemId) {
-        try {
-            const response = await fetch(`/api/items/${itemId}`, {
-                method: 'DELETE',
-            });
+//
+//     async function handleDelete(itemId) {
+//         try {
+//             const response = await fetch(`/api/items/${itemId}`, {
+//                 method: 'DELETE',
+//             });
 
-            if (!response.ok) {
-                throw new Error('Failed to delete item');
-            }
+//             if (!response.ok) {
+//                 throw new Error('Failed to delete item');
+//             }
 
             // Update the items list after successful deletion
-            setItems(items.filter(item => item.id !== itemId));
-            alert('Item successfully removed.');
-        } catch (error) {
-            console.error('Error deleting item:', error);
-            setError('Failed to delete item. Please try again.');
-        }
-    }
+//            setItems(items.filter(item => item.id !== itemId));
+//            alert('Item successfully removed.');
+//        } catch (error) {
+//            console.error('Error deleting item:', error);
+//            setError('Failed to delete item. Please try again.');
+//        }
+//    }
 
     return (
         <main className="app-container">
@@ -68,7 +68,7 @@ export function MyItems() {
                             <p><strong>Price:</strong> ${item.price}</p>
                             <p><strong>Description:</strong> {item.description}</p>
                             <p><strong>Category:</strong> {item.category}</p>
-                            <button className="delete-button" onClick={() => handleDelete(item.id)}>Remove Item</button>
+                            {/* <button className="delete-button" onClick={() => handleDelete(item.id)}>Remove Item</button> */}
                         </div>
                     ))
                 )}
