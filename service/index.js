@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const { WebSocketServer } = require('ws');
 const app = express();
 const DB = require('./database.js');
 
@@ -10,6 +11,40 @@ const authCookieName = 'token';
 
 // The service port
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
+
+// Create HTTP server
+const server = app.listen(port, () => {
+  console.log(`ThriftConnect server listening on port ${port}`);
+});
+
+// Create WebSocket server
+const wss = new WebSocketServer({ server });
+
+// Handle WebSocket connections
+wss.on('connection', (ws) => {
+  console.log('New WebSocket connection established');
+
+  // Handle incoming messages
+  ws.on('message', async (data) => {
+    try {
+      const message = JSON.parse(data);
+      
+      // Broadcast message to all connected clients
+      wss.clients.forEach((client) => {
+        if (client !== ws && client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify(message));
+        }
+      });
+    } catch (error) {
+      console.error('Error handling WebSocket message:', error);
+    }
+  });
+
+  // Handle connection close
+  ws.on('close', () => {
+    console.log('WebSocket connection closed');
+  });
+});
 
 // Middleware
 app.use(express.json({ limit: '10mb' }));
@@ -223,7 +258,3 @@ function setAuthCookie(res, authToken) {
     sameSite: 'strict',
   });
 }
-
-app.listen(port, () => {
-  console.log(`ThriftConnect server listening on port ${port}`);
-});
