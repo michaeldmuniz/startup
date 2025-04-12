@@ -124,6 +124,20 @@ apiRouter.post('/items', async (req, res) => {
     };
 
     const createdItem = await DB.addItem(item);
+    
+    // Broadcast new item notification to all connected clients
+    const wss = require('./peerProxy.js').getWebSocketServer();
+    if (wss) {
+      wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(JSON.stringify({
+            type: 'new_item',
+            item: createdItem
+          }));
+        }
+      });
+    }
+
     res.status(201).json(createdItem);
   } catch (error) {
     console.error('Error creating item:', error);
@@ -146,63 +160,6 @@ apiRouter.delete('/items/:id', async (req, res) => {
   }
 
   res.send({ msg: 'Item deleted' });
-});
-
-// Auth middleware
-const verifyAuth = async (req, res, next) => {
-  const user = await DB.getUserByToken(req.cookies[authCookieName]);
-  if (user) {
-    req.user = user; // Attach user to request
-    next();
-  } else {
-    res.status(401).send({ msg: 'Unauthorized' });
-  }
-};
-
-// Chat endpoints
-apiRouter.post('/chat/start', verifyAuth, async (req, res) => {
-  const item = await DB.getItem(req.body.itemId);
-  if (!item) {
-    return res.status(404).send({ msg: 'Item not found' });
-  }
-
-  const conversation = {
-    id: uuid.v4(),
-    itemId: item.id,
-    buyerId: req.user.id,
-    sellerId: item.sellerId,
-    messages: [],
-    createdAt: new Date()
-  };
-  
-  await DB.addConversation(conversation);
-  res.send(conversation);
-});
-
-apiRouter.get('/chat/conversations', verifyAuth, async (req, res) => {
-  const userConversations = await DB.getConversations(req.user.id);
-  res.send(userConversations);
-});
-
-apiRouter.post('/chat/messages', verifyAuth, async (req, res) => {
-  const conversation = await DB.getConversation(req.body.conversationId);
-  if (!conversation) {
-    return res.status(404).send({ msg: 'Conversation not found' });
-  }
-
-  if (conversation.buyerId !== req.user.id && conversation.sellerId !== req.user.id) {
-    return res.status(403).send({ msg: 'Not authorized to send messages in this conversation' });
-  }
-
-  const message = {
-    id: uuid.v4(),
-    senderId: req.user.id,
-    content: req.body.content,
-    createdAt: new Date()
-  };
-
-  await DB.addMessage(conversation.id, message);
-  res.send(message);
 });
 
 // Error handler
