@@ -1,11 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { webSocketClient } from '../utils/websocket';
 
 export function Shop() {
     const [items, setItems] = useState([]);
     const [error, setError] = useState(null);
+    const [notification, setNotification] = useState(null);
 
     useEffect(() => {
         fetchItems();
+        
+        // Set up WebSocket message handler
+        const handleNewItem = (message) => {
+            if (message.type === 'new_item') {
+                setNotification(`New item listed: ${message.item.title}`);
+                setItems(prevItems => [message.item, ...prevItems]);
+                
+                // Clear notification after 5 seconds
+                setTimeout(() => {
+                    setNotification(null);
+                }, 5000);
+            }
+        };
+
+        webSocketClient.addMessageHandler(handleNewItem);
+
+        // Cleanup
+        return () => {
+            webSocketClient.removeMessageHandler(handleNewItem);
+        };
     }, []);
 
     async function fetchItems() {
@@ -27,6 +49,11 @@ export function Shop() {
             <h1>Welcome to Our Shop</h1>
             <p>Browse through our items below!</p>
             {error && <p className="error-message">{error}</p>}
+            {notification && (
+                <div className="notification">
+                    {notification}
+                </div>
+            )}
             <div className="items-list">
                 {items.length === 0 ? (
                     <p>No items available for sale. Be the first to list one!</p>
