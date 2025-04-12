@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
+import { webSocketClient } from './utils/websocket';
 
 import { Shop } from './shop/shop';
 import { Login } from './login/login';
@@ -14,6 +15,13 @@ export default function App() {
 
     useEffect(() => {
         setUser(localStorage.getItem('loggedInUser'));
+        // Initialize WebSocket connection
+        webSocketClient.connect();
+        
+        // Cleanup WebSocket connection on component unmount
+        return () => {
+            webSocketClient.disconnect();
+        };
     }, []);
 
     function logout() {
