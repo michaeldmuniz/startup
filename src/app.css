@@ -52,6 +52,9 @@ h1, h2, p {
     padding: 20px; /* Adds padding inside cards for spacing */
     width: calc(25% - 20px); /* Calculates width to fit 4 items per row */
     text-align: center; /* Centers text inside items */
+    display: flex; /* Enables flexbox for layout */
+    flex-direction: column; /* Stacks content vertically */
+    min-height: 500px; /* Sets minimum height for consistency */
 }
 
 /* Container holding the items */
@@ -59,13 +62,16 @@ h1, h2, p {
     display: flex; /* Enables flexbox layout for item list */
     flex-wrap: wrap; /* Allows items to wrap onto next line */
     justify-content: space-around; /* Distributes space around items evenly */
-    align-items: flex-end; /* Aligns items at the bottom of the container */
+    align-items: stretch; /* Makes all items the same height */
     padding: 20px; /* Adds padding inside item list container */
 }
 
 .item img {
     width: 100%; /* Sets image width to fill container */
-    height: auto; /* Maintains aspect ratio of images */
+    height: 300px; /* Sets fixed height */
+    object-fit: contain; /* Maintains aspect ratio without cropping */
+    background-color: #f8f8f8; /* Light background for transparent images */
+    margin-bottom: 15px; /* Adds space below the image */
 }
 
 /* Footer and additional links */
@@ -104,6 +110,11 @@ a {
 
     .item {
         width: calc(100% - 20px); /* Adjusts item width to fit 1 item per row on mobile devices */
+        min-height: auto; /* Removes fixed height on mobile */
+    }
+
+    .item img {
+        height: 250px; /* Slightly smaller images on mobile */
     }
 
     header {
