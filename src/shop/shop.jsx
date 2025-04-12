@@ -32,7 +32,7 @@ export function Shop() {
                     <p>No items available for sale. Be the first to list one!</p>
                 ) : (
                     items.map((item) => (
-                        <div key={item.id} className="item">
+                        <div key={item._id} className="item">
                             <h2>{item.title}</h2>
                             {item.images && item.images.length > 0 && (
                                 <img src={item.images[0]} alt={item.title} />

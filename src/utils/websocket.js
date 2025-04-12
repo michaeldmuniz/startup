@@ -31,11 +31,6 @@ class WebSocketClient {
     this.socket.onerror = (error) => {
       console.error('WebSocket error:', error);
     };
-
-    // Handle ping messages from server
-    this.socket.on('ping', () => {
-      this.socket.pong();
-    });
   }
 
   send(message) {
