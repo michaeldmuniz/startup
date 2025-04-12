@@ -225,3 +225,20 @@ a {
         opacity: 1;
     }
 }
+
+.affirmation {
+    background-color: #f0f8ff;
+    border-left: 4px solid #4CAF50;
+    padding: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.affirmation p {
+    font-style: italic;
+    color: #333;
+    margin: 0;
+    text-align: center;
+}

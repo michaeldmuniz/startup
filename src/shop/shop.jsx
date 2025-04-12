@@ -5,9 +5,11 @@ export function Shop() {
     const [items, setItems] = useState([]);
     const [error, setError] = useState(null);
     const [notification, setNotification] = useState(null);
+    const [affirmation, setAffirmation] = useState(null);
 
     useEffect(() => {
         fetchItems();
+        fetchAffirmation();
         
         // Set up WebSocket message handler
         const handleNewItem = (message) => {
@@ -30,6 +32,19 @@ export function Shop() {
         };
     }, []);
 
+    async function fetchAffirmation() {
+        try {
+            const response = await fetch('/api/daily-affirmation');
+            if (!response.ok) {
+                throw new Error('Failed to fetch affirmation');
+            }
+            const data = await response.json();
+            setAffirmation(data.message);
+        } catch (error) {
+            console.error('Error fetching affirmation:', error);
+        }
+    }
+
     async function fetchItems() {
         try {
             const response = await fetch('/api/items');
@@ -47,6 +62,11 @@ export function Shop() {
     return (
         <main className="app-container">
             <h1>Welcome to Our Shop</h1>
+            {affirmation && (
+                <div className="affirmation">
+                    <p>Daily Affirmation: {affirmation}</p>
+                </div>
+            )}
             <p>Browse through our items below!</p>
             {error && <p className="error-message">{error}</p>}
             {notification && (
