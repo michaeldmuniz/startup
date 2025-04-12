@@ -126,8 +126,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - Implemented WebSocket server in `peerProxy.js` that handles connections, manages client health with ping/pong, and broadcasts messages to all connected clients.
+
+- [x] **Frontend makes WebSocket connection** - Created `WebSocketClient` class in `websocket.js` that establishes connection when the app starts and manages connection state.
+
+- [x] **Data sent over WebSocket connection** - When a new item is listed, the server broadcasts the item details to all connected clients in real-time.
+
+- [x] **WebSocket data displayed** - Added real-time notifications in the Shop component that show when new items are listed and automatically update the item list.
+
+- [x] **Application is fully functional** - Implemented complete real-time notification system for new items with no placeholders or mocks. Notifications appear with animations and auto-dismiss after 5 seconds.
